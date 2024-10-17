@@ -10,7 +10,7 @@ const MovieCast = () => {
   const [movieCast, setMovieCast] = useState([]);
 
   useEffect(() => {
-    const requestMovieByID = async () => {
+    const requestMovieCast = async () => {
       try {
         const options = {
           baseURL: "https://api.themoviedb.org/3",
@@ -26,7 +26,7 @@ const MovieCast = () => {
         console.log(error);
       }
     };
-    requestMovieByID();
+    requestMovieCast();
   }, [movieId]);
 
   return (

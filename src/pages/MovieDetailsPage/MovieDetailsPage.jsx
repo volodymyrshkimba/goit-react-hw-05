@@ -1,12 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+
+const defaultImg =
+  "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
+  const [movieGenre, setMovieGenres] = useState([]);
   const location = useLocation();
-  const goBackLink = location.state ?? "/";
+  const backLink = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     const requestMovieByID = async () => {
@@ -21,6 +25,7 @@ const MovieDetailsPage = () => {
         const response = await axios.get(`/movie/${movieId}`, options);
 
         setMovieInfo(response.data);
+        setMovieGenres(response.data.genres);
       } catch (error) {
         console.log(error);
       }
@@ -29,11 +34,21 @@ const MovieDetailsPage = () => {
   }, [movieId]);
   return (
     <div>
-      <Link to={goBackLink}>Go back</Link>
+      <Link to={backLink.current}>Go back</Link>
       <h2>{movieInfo["original_title"]}</h2>
       <p>Overview: {movieInfo.overview}</p>
+      <ul>
+        Genres:
+        {movieGenre.map((genre) => {
+          return <li key={genre.id}> {genre.name}</li>;
+        })}
+      </ul>
       <img
-        src={`https://image.tmdb.org/t/p/w500${movieInfo.poster_path}`}
+        src={
+          movieInfo.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movieInfo.poster_path}`
+            : defaultImg
+        }
         alt={movieInfo["original_title"]}
         width={300}
       />
