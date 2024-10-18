@@ -14,10 +14,11 @@ const MovieList = ({ movies }) => {
             <Link
               className={css.link}
               to={`/movies/${movie.id}`}
-              state={location}
+              state={{
+                from: location,
+              }}
             >
               <MdArrowRightAlt size={20} />
-
               {movie.title}
             </Link>
           </li>

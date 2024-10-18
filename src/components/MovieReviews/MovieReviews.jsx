@@ -5,7 +5,7 @@ import { requestMovieReviews } from "../../services/TMDB-api";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-  const [movieReviews, setMovieReviews] = useState([]);
+  const [movieReviews, setMovieReviews] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,11 +23,12 @@ const MovieReviews = () => {
     };
     request();
   }, [movieId]);
+  // <p>There are no reviews for this movie.</p>;
 
   return (
     <>
       {loading && <div>LOADING...</div>}
-      {movieReviews.length !== 0 ? (
+      {movieReviews !== null && (
         <ul>
           {movieReviews.map((review) => {
             return (
@@ -40,8 +41,6 @@ const MovieReviews = () => {
             );
           })}
         </ul>
-      ) : (
-        <p>There are no reviews for this movie.</p>
       )}
     </>
   );

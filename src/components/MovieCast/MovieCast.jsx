@@ -8,7 +8,7 @@ const defaultImg =
 
 const MovieCast = () => {
   const { movieId } = useParams();
-  const [movieCast, setMovieCast] = useState([]);
+  const [movieCast, setMovieCast] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -30,27 +30,29 @@ const MovieCast = () => {
   return (
     <>
       {loading && <div>LOADING...</div>}
-      {movieCast.length !== 0 ? (
-        <ul>
-          {movieCast.map((person) => {
-            return (
-              <li key={person.id}>
-                <img
-                  src={
-                    person.profile_path
-                      ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
-                      : defaultImg
-                  }
-                  width={200}
-                  alt={person.name}
-                />
-                <p>Name: {person.name}</p>
-                <p>Character: {person.character}</p>
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
+      {movieCast !== null ||
+        (movieCast.length > 0 && (
+          <ul>
+            {movieCast.map((person) => {
+              return (
+                <li key={person.id}>
+                  <img
+                    src={
+                      person.profile_path
+                        ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
+                        : defaultImg
+                    }
+                    width={200}
+                    alt={person.name}
+                  />
+                  <p>Name: {person.name}</p>
+                  <p>Character: {person.character}</p>
+                </li>
+              );
+            })}
+          </ul>
+        ))}
+      {movieCast !== null && movieCast.length === 0 && (
         <p>We don&apos;t have any information about the cast for this movie.</p>
       )}
     </>

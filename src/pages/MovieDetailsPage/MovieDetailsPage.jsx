@@ -12,7 +12,7 @@ const MovieDetailsPage = () => {
   const [movieGenre, setMovieGenres] = useState([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const backLink = useRef(location.state ?? "/movies");
+  const backLink = useRef(location.state?.from ?? "/movies");
 
   useEffect(() => {
     const request = async () => {
@@ -37,10 +37,14 @@ const MovieDetailsPage = () => {
 
       {loading && <div>LOADING...</div>}
       <h2>{movieInfo.original_title}</h2>
-      {movieInfo.overview && <p>Overview: {movieInfo.overview}</p>}
+      {movieInfo.overview && (
+        <p>
+          <b>Overview:</b> {movieInfo.overview}
+        </p>
+      )}
       {movieGenre.length !== 0 && (
         <ul>
-          Genres:
+          <b>Genres:</b>
           {movieGenre.map((genre) => {
             return <li key={genre.id}> {genre.name}</li>;
           })}
@@ -48,8 +52,12 @@ const MovieDetailsPage = () => {
       )}
       {movieInfo.vote_count !== 0 && (
         <ul>
-          <li>Rating: {Math.round(movieInfo.vote_average * 10) / 10} / 10</li>
-          <li>Votes: {movieInfo.vote_count}</li>
+          <li>
+            <b>Rating:</b> {Math.round(movieInfo.vote_average * 10) / 10} / 10
+          </li>
+          <li>
+            <b>Votes:</b> {movieInfo.vote_count}
+          </li>
         </ul>
       )}
       <img
