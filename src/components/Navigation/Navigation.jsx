@@ -11,12 +11,18 @@ const Navigation = () => {
 
   return (
     <nav>
-      <NavLink to="/" className={createClassString}>
-        Home
-      </NavLink>
-      <NavLink to="/movies" className={createClassString}>
-        Movies
-      </NavLink>
+      <ul>
+        <li>
+          <NavLink to="/" className={createClassString}>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/movies" className={createClassString}>
+            Movies
+          </NavLink>
+        </li>
+      </ul>
     </nav>
   );
 };
