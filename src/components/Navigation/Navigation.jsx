@@ -10,8 +10,8 @@ const Navigation = () => {
   };
 
   return (
-    <nav>
-      <ul>
+    <nav className={css.nav}>
+      <ul className={css.list}>
         <li>
           <NavLink to="/" className={createClassString}>
             Home

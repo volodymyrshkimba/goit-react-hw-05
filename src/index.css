@@ -25,6 +25,7 @@ img {
   max-width: 100%;
 }
 
-#root {
-  padding: 10px;
+a {
+  text-decoration: none;
+  color: inherit;
 }

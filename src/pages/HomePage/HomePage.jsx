@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import MovieList from "../../components/MovieList/MovieList";
 
+import css from "./HomePage.module.css";
+
 import { requestMovies } from "../../services/TMDB-api";
 
 const HomePage = () => {
